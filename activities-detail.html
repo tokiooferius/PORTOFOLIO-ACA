@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activities & Media Gallery | Salsabilla</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --b1: #001a33;
+      --b3: #0066CC;
+      --b4: #0078D4;
+      --b5: #00B4FF;
+      --b6: #1EDBE0;
+      --sky: #00D4FF;
+      --gold: #FFD700;
+      --white: #FFFFFF;
+      --text-light: rgba(255, 255, 255, 0.7);
+    }
+    
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, var(--b1) 0%, #003d7a 100%);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    
+    /* NAVBAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(0, 26, 51, 0.95);
+      border-bottom: 1px solid rgba(0, 180, 255, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+      color: var(--sky);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      font-size: 0.9rem;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--sky);
+    }
+    
+    .nav-back {
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(135deg, var(--sky), var(--b6));
+      border: none;
+      border-radius: 0.5rem;
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .nav-back:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+    }
+    
+    /* HEADER */
+    .page-header {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, rgba(0, 102, 204, 0.2) 0%, transparent 100%);
+      border-bottom: 2px solid rgba(0, 180, 255, 0.2);
+    }
+    
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--sky), var(--b6));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .page-header p {
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* TAB NAVIGATION */
+    .tab-nav {
+      display: flex;
+      gap: 1rem;
+      margin: 3rem 0 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .tab-btn {
+      padding: 0.8rem 1.6rem;
+      background: rgba(0, 180, 255, 0.1);
+      border: 2px solid rgba(0, 180, 255, 0.25);
+      color: var(--sky);
+      border-radius: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+    
+    .tab-btn:hover, .tab-btn.active {
+      border-color: var(--sky);
+      background: rgba(0, 180, 255, 0.2);
+      color: var(--b6);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+    }
+    
+    /* TAB CONTENT */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ACTIVITY CARDS */
+    .activity-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .activity-card {
+      background: rgba(0, 180, 255, 0.08);
+      border: 2px solid rgba(0, 180, 255, 0.2);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .activity-card:hover {
+      border-color: var(--sky);
+      transform: translateY(-12px);
+      box-shadow: 0 24px 64px rgba(0, 180, 255, 0.25);
+    }
+    
+    .activity-img {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, rgba(0, 102, 204, 0.3), rgba(0, 180, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .activity-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+    
+    .activity-card:hover .activity-img img {
+      transform: scale(1.1);
+    }
+    
+    .activity-body {
+      padding: 1.8rem;
+    }
+    
+    .activity-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: rgba(0, 180, 255, 0.15);
+      color: var(--sky);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .activity-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+      color: var(--b6);
+    }
+    
+    .activity-date {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    
+    .activity-desc {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    
+    .activity-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 180, 255, 0.15);
+    }
+    
+    .activity-count {
+      font-size: 0.8rem;
+      color: var(--sky);
+      font-weight: 700;
+    }
+    
+    .view-btn {
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(135deg, var(--sky), var(--b6));
+      border: none;
+      border-radius: 0.5rem;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .view-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+    }
+    
+    /* DETAIL MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: modalFade 0.3s ease;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .modal-content {
+      background: linear-gradient(135deg, rgba(0, 26, 51, 0.98), rgba(0, 61, 122, 0.95));
+      border: 2px solid rgba(0, 180, 255, 0.3);
+      border-radius: 1.5rem;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 180, 255, 0.1);
+      border: 2px solid rgba(0, 180, 255, 0.25);
+      border-radius: 50%;
+      color: var(--sky);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    
+    .modal-close:hover {
+      background: rgba(0, 180, 255, 0.25);
+      border-color: var(--sky);
+    }
+    
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .modal-photo {
+      aspect-ratio: 1;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 2px solid rgba(0, 180, 255, 0.2);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .modal-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+    
+    .modal-photo:hover img {
+      transform: scale(1.1);
+    }
+    
+    /* PROJECT SHOWCASE */
+    .project-section {
+      margin: 3rem 0;
+    }
+    
+    .project-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background: rgba(30, 219, 224, 0.08);
+      border: 2px solid rgba(30, 219, 224, 0.2);
+      border-radius: 1.3rem;
+      overflow: hidden;
+      transition: 0.4s;
+      cursor: pointer;
+    }
+    
+    .project-card:hover {
+      border-color: var(--b6);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(30, 219, 224, 0.2);
+    }
+    
+    .project-img {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(30, 219, 224, 0.2), rgba(0, 180, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    
+    .project-body {
+      padding: 1.5rem;
+    }
+    
+    .project-type {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--b6);
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+    }
+    
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .tech-tag {
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(0, 180, 255, 0.12);
+      border: 1px solid rgba(0, 180, 255, 0.2);
+      border-radius: 1rem;
+      color: var(--sky);
+      font-weight: 700;
+    }
+    
+    /* FOOTER */
+    footer {
+      background: linear-gradient(180deg, var(--b1) 0%, #002a5c 100%);
+      border-top: 1px solid rgba(0, 180, 255, 0.15);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+    
+    .footer-text {
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .nav-links { display: none; }
+      .page-header { padding: 2rem 1.5rem; }
+      .modal-content { padding: 1.5rem; }
+      .activity-showcase { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">ACHA ✦</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="#activities" class="active">Activities</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back</a>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>📸 ACTIVITIES & MEDIA GALLERY</h1>
+    <p>Explore detailed documentation of events, activities, and projects with photos, certificates, and insights from each experience</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <!-- TAB NAVIGATION -->
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="activities">🎉 Activities</button>
+      <button class="tab-btn" data-tab="projects">🎨 Projects</button>
+      <button class="tab-btn" data-tab="certificates">🏆 Certificates</button>
+    </div>
+
+    <!-- TAB 1: ACTIVITIES -->
+    <div class="tab-content active" id="activities">
+      <div class="activity-showcase">
+        <!-- WPI -->
+        <div class="activity-card" onclick="openActivityModal('wpi')">
+          <div class="activity-img">
+            <img src="assets/img/Dokumentasi/Foto bersama Full Panitia WPI.jpeg" alt="WPI">
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">🎓 Event</span>
+            <h3 class="activity-title">WPI 2025</h3>
+            <p class="activity-date">January 2025</p>
+            <p class="activity-desc">Welcoming Party Informatics - Creative Media Staff managing comprehensive live event documentation</p>
+            <div class="activity-footer">
+              <span class="activity-count">📸 8+ Photos</span>
+              <button class="view-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- INFENTRA -->
+        <div class="activity-card" onclick="openActivityModal('infentra')">
+          <div class="activity-img">
+            <img src="assets/img/Dokumentasi/Foto Bersama Panitia FULL Infentra.jpeg" alt="INFENTRA">
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">💼 Event</span>
+            <h3 class="activity-title">INFENTRA</h3>
+            <p class="activity-date">2025-2026</p>
+            <p class="activity-desc">Informatics Enterprise Forum - Multimedia content creation & event documentation</p>
+            <div class="activity-footer">
+              <span class="activity-count">📸 6+ Photos</span>
+              <button class="view-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TULC -->
+        <div class="activity-card" onclick="openActivityModal('tulc')">
+          <div class="activity-img">
+            <img src="assets/img/Dokumentasi/Foto Bersama Panitia TULC LEADERMIND.jpeg" alt="TULC">
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">🎯 Seminar</span>
+            <h3 class="activity-title">TULC Leadermind</h3>
+            <p class="activity-date">2025-2026</p>
+            <p class="activity-desc">Telkom University Leadership Camp - Content strategy & professional documentation</p>
+            <div class="activity-footer">
+              <span class="activity-count">📸  5+ Photos</span>
+              <button class="view-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- HIPMI -->
+        <div class="activity-card" onclick="openActivityModal('hipmi')">
+          <div class="activity-img">
+            <img src="assets/img/Dokumentasi/Foto Individu HIPMI.jpeg" alt="HIPMI">
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">👥 Organization</span>
+            <h3 class="activity-title">HIPMI Creative Media</h3>
+            <p class="activity-date">Ongoing</p>
+            <p class="activity-desc">Creative Media Staff role in HIPMI Telkom University - Leading multimedia initiatives</p>
+            <div class="activity-footer">
+              <span class="activity-count">📸  10+ Photos</span>
+              <button class="view-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ULTRAS -->
+        <div class="activity-card" onclick="openActivityModal('ultras')">
+          <div class="activity-img">
+            <img src="assets/img/Dokumentasi/Mengikuti Kegiatan Ultras Informatics.jpeg" alt="Ultras">
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">⚽ Community</span>
+            <h3 class="activity-title">Ultras Informatics</h3>
+            <p class="activity-date">2025-2026</p>
+            <p class="activity-desc">Participating in Ultras Informatics community activities and events</p>
+            <div class="activity-footer">
+              <span class="activity-count">📸  4+ Photos</span>
+              <button class="view-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIFESTYLE -->
+        <div class="activity-card" onclick="openActivityModal('lifestyle')">
+          <div class="activity-img">
+            <img src="assets/img/Dokumentasi/Lucu Vibes.jpeg" alt="Lifestyle">
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">📷 Lifestyle</span>
+            <h3 class="activity-title">Moments & Vibes</h3>
+            <p class="activity-date">2024-2026</p>
+            <p class="activity-desc">Personal moments, lifestyle photography, and candid captures from various occasions</p>
+            <div class="activity-footer">
+              <span class="activity-count">📸  6+ Photos</span>
+              <button class="view-btn">View Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PROJECTS -->
+    <div class="tab-content" id="projects">
+      <div class="project-section">
+        <div class="project-showcase">
+          <!-- Project 1: Cantene -->
+          <div class="project-card" onclick="openProjectModal('cantene')">
+            <div class="project-img">🍽️</div>
+            <div class="project-body">
+              <div class="project-type">UI/UX Design</div>
+              <h3 class="project-title">Cantene Food Ordering</h3>
+              <p class="project-desc">Complete food ordering platform with modern design, system documentation, use cases, and ERD</p>
+              <div class="project-tech">
+                <span class="tech-tag">Figma</span>
+                <span class="tech-tag">UI/UX</span>
+                <span class="tech-tag">Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: BNSP -->
+          <div class="project-card" onclick="openProjectModal('bnsp')">
+            <div class="project-img">🏆</div>
+            <div class="project-body">
+              <div class="project-type">Web Development</div>
+              <h3 class="project-title">BNSP Certification Project</h3>
+              <p class="project-desc">Community Complaint Reporting System - Achieved Competent status in Junior Programmer Certification</p>
+              <div class="project-tech">
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">PHP</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Graphic Design -->
+          <div class="project-card" onclick="openProjectModal('graphic')">
+            <div class="project-img">🎨</div>
+            <div class="project-body">
+              <div class="project-type">Graphic Design</div>
+              <h3 class="project-title">Social Media & Branding</h3>
+              <p class="project-desc">Visual assets and social media content creation for university organizations with brand consistency</p>
+              <div class="project-tech">
+                <span class="tech-tag">Canva</span>
+                <span class="tech-tag">Adobe</span>
+                <span class="tech-tag">Design</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: Portfolio -->
+          <div class="project-card" onclick="openProjectModal('portfolio')">
+            <div class="project-img">🌐</div>
+            <div class="project-body">
+              <div class="project-type">Web Development</div>
+              <h3 class="project-title">Portfolio Website</h3>
+              <p class="project-desc">Modern interactive portfolio with custom animations, bright beach blue theme, and fully responsive design</p>
+              <div class="project-tech">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5: Event Media -->
+          <div class="project-card" onclick="openProjectModal('eventmedia')">
+            <div class="project-img">📹</div>
+            <div class="project-body">
+              <div class="project-type">Media Production</div>
+              <h3 class="project-title">Event Media Management</h3>
+              <p class="project-desc">Professional documentation for WPI, TULC, INFENTRA & Market Day with photography, videography & editing</p>
+              <div class="project-tech">
+                <span class="tech-tag">Photography</span>
+                <span class="tech-tag">Video</span>
+                <span class="tech-tag">Editing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 6: Coming Soon -->
+          <div class="project-card">
+            <div class="project-img">🚀</div>
+            <div class="project-body">
+              <div class="project-type">In Development</div>
+              <h3 class="project-title">More Projects Coming</h3>
+              <p class="project-desc">Currently working on exciting new projects combining web development, design, and creative media</p>
+              <div class="project-tech">
+                <span class="tech-tag">2026</span>
+                <span class="tech-tag">Innovation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: CERTIFICATES -->
+    <div class="tab-content" id="certificates">
+      <p style="text-align: center; color: var(--text-light); margin: 3rem 0; font-size: 1rem; line-height: 1.8;">
+        I have earned <strong style="color: var(--sky);">17 Professional Certificates</strong> across various domains including:
+      </p>
+      <div class="activity-showcase">
+        <!-- Certificate cards can be added here -->
+        <div class="activity-card">
+          <div class="activity-img" style="background: linear-gradient(135deg, rgba(0, 180, 255, 0.3), rgba(30, 219, 224, 0.2));">
+            🏅
+          </div>
+          <div class="activity-body">
+            <span class="activity-tag">CERTIFICATION</span>
+            <h3 class="activity-title">BNSP Junior Programmer</h3>
+            <p class="activity-desc">Official certification achieving "Competent" status in Junior Programmer competency assessment</p>
+            <div class="activity-footer">
+              <span class="activity-count">Status: Competent ✓</span>
+            </div>
+          </div>
+        </div>
+        
+        <p style="grid-column: 1 / -1; text-align: center; color: var(--text-light); margin: 2rem 0;">
+          View all 17 certificates in the main portfolio certificates section 👉 <a href="index.html#certificates" style="color: var(--sky); text-decoration: underline;">Go to Certificates</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY MODALS -->
+  <div class="modal" id="wpiModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('wpi')">×</span>
+      <h2 style="color: var(--sky); margin-bottom: 1rem; font-family: 'Bebas Neue';">🎓 WPI 2025 - Welcoming Party Informatics</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Welcoming Party Informatics (WPI)</strong> adalah acara tahunan untuk menyambut mahasiswa baru Informatics Program di Telkom University. 
+        Saya berperan sebagai <strong>Creative Media Staff</strong>, bertanggung jawab atas dokumentasi visual profesional termasuk fotografi, videografi, dan live streaming.
+        <br><br>
+        <strong>Responsibility:</strong> Live event coverage, professional photography, videography, content creation for social media, dan live streaming management.
+      </p>
+      <h3 style="color: var(--b6); margin: 1.5rem 0 1rem;">Photo Documentation</h3>
+      <div class="modal-gallery">
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto bersama Full Panitia WPI.jpeg" alt="WPI Team Photo">
+        </div>
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto Bersama orang penting.jpeg" alt="WPI VIP">
+        </div>
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Dokumentasi Foto Kamera.jpeg" alt="Photography">
+        </div>
+      </div>
+      <div style="background: rgba(0, 180, 255, 0.1); border: 1px solid rgba(0, 180, 255, 0.2); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="color: var(--sky); margin-bottom: 0.8rem;">📊 Event Stats:</h4>
+        <ul style="color: var(--text-light); list-style: none;">
+          <li>✓ 500+ attendees documented</li>
+          <li>✓ 50+ high-quality photos</li>
+          <li>✓ Professional video footage</li>
+          <li>✓ Live streaming coordination</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="infentraModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('infentra')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">💼 INFENTRA - Informatics Enterprise Forum</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>INFENTRA (Informatics Enterprise Forum)</strong> adalah forum yang menghadirkan profesional dan entrepreneur dari industri teknologi. 
+        Sebagai <strong>Multimedia Content Creator</strong>, saya menangani dokumentasi event, pembuatan konten visual, dan manajemen aset digital.
+        <br><br>
+        <strong>Responsibility:</strong> Event documentation, social media content creation, visual asset design, dan digital archive management.
+      </p>
+      <h3 style="color: var(--b6); margin: 1.5rem 0 1rem;">Photo Documentation</h3>
+      <div class="modal-gallery">
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto Bersama Panitia FULL Infentra.jpeg" alt="INFENTRA Full Team">
+        </div>
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto bersama panitia Infentra.jpeg" alt="INFENTRA Team">
+        </div>
+      </div>
+      <div style="background: rgba(30, 219, 224, 0.1); border: 1px solid rgba(30, 219, 224, 0.2); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="color: var(--b6); margin-bottom: 0.8rem;">📊 Event Stats:</h4>
+        <ul style="color: var(--text-light); list-style: none;">
+          <li>✓ Multiple session coverage</li>
+          <li>✓ 100+ photos catalogued</li>
+          <li>✓ Social media content package</li>
+          <li>✓ Professional editing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="tulcModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('tulc')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">🎯 TULC Leadermind - Leadership Development</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>TULC (Telkom University Leadership Camp) Leadermind</strong> adalah program pengembangan kepemimpinan untuk mahasiswa dengan fokus pada personal growth dan leadership skills. 
+        Saya berkontribusi dalam dokumentasi visual dan konten creation untuk merekam pengalaman peserta.
+        <br><br>
+        <strong>Responsibility:</strong> Workshop documentation, participant photos, content creation, dan promotional material design.
+      </p>
+      <h3 style="color: var(--b6); margin: 1.5rem 0 1rem;">Photo Documentation</h3>
+      <div class="modal-gallery">
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto Bersama Panitia TULC LEADERMIND.jpeg" alt="TULC Team">
+        </div>
+      </div>
+      <div style="background: rgba(0, 180, 255, 0.1); border: 1px solid rgba(0, 180, 255, 0.2); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="color: var(--sky); margin-bottom: 0.8rem;">📊 Event Stats:</h4>
+        <ul style="color: var(--text-light); list-style: none;">
+          <li>✓ 3-day program documentation</li>
+          <li>✓ 150+ participants</li>
+          <li>✓ Workshop & activity photos</li>
+          <li>✓ Participant testimonials captured</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="hipmiModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('hipmi')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">👥 HIPMI Creative Media Staff</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>HIPMI (Himpunan Mahasiswa Program Informatika)</strong> adalah organisasi mahasiswa Program Informatika. Sebagai anggota <strong>Creative Media Staff</strong>, 
+        saya memimpin inisiatif multimedia termasuk content strategy, production, dan digital asset management untuk semua kegiatan organisasi.
+        <br><br>
+        <strong>Responsibility:</strong> Content strategy leadership, multimedia production, social media management, event documentation, dan team coordination.
+      </p>
+      <h3 style="color: var(--b6); margin: 1.5rem 0 1rem;">Photo Documentation</h3>
+      <div class="modal-gallery">
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto Individu HIPMI.jpeg" alt="HIPMI Individual">
+        </div>
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Foto Wanita Karir.jpeg" alt="Career Event">
+        </div>
+      </div>
+      <div style="background: rgba(30, 219, 224, 0.1); border: 1px solid rgba(30, 219, 224, 0.2); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="color: var(--b6); margin-bottom: 0.8rem;">📊 Ongoing Responsibilities:</h4>
+        <ul style="color: var(--text-light); list-style: none;">
+          <li>✓ Monthly event documentation</li>
+          <li>✓ Social media content creation</li>
+          <li>✓ Digital archive management</li>
+          <li>✓ Team mentorship & leadership</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="ultrasModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('ultras')">×</span>
+      <h2 style="color: var(--sky); margin-bottom: 1rem; font-family: 'Bebas Neue';">⚽ Ultras Informatics Community</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Ultras Informatics</strong> adalah komunitas suporter yang dinamis dalam Program Informatika, fokus pada event olahraga, gathering, dan community building. 
+        Partisipasi saya dalam komunitas ini mencerminkan engagement dalam university life dan team spirit.
+        <br><br>
+        <strong>Involvement:</strong> Event attendance, community activities, sports events support, dan networking.
+      </p>
+      <h3 style="color: var(--b6); margin: 1.5rem 0 1rem;">Photo Documentation</h3>
+      <div class="modal-gallery">
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Mengikuti Kegiatan Ultras Informatics.jpeg" alt="Ultras Activity">
+        </div>
+      </div>
+      <div style="background: rgba(0, 180, 255, 0.1); border: 1px solid rgba(0, 180, 255, 0.2); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="color: var(--sky); margin-bottom: 0.8rem;">📊 Community Engagement:</h4>
+        <ul style="color: var(--text-light); list-style: none;">
+          <li>✓ Regular event participation</li>
+          <li>✓ Community activities</li>
+          <li>✓ Networking with peers</li>
+          <li>✓ Team spirit & collaboration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="lifestyleModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('lifestyle')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">📷 Moments & Lifestyle Photography</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        Personal moments, candid captures, dan lifestyle photography yang merekam berbagai aspek kehidupan akademis dan personal. 
+        Koleksi ini menunjukkan personality, hobbies, dan memorable moments bersama teman dan keluarga.
+        <br><br>
+        <strong>Collection Includes:</strong> Casual hangouts, personal achievements, travel moments, fun activities, dan personal milestones.
+      </p>
+      <h3 style="color: var(--b6); margin: 1.5rem 0 1rem;">Photo Collection</h3>
+      <div class="modal-gallery">
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Lucu Vibes.jpeg" alt="Fun Vibes">
+        </div>
+        <div class="modal-photo">
+          <img src="assets/img/Dokumentasi/Self Foto.jpeg" alt="Self Photo">
+        </div>
+      </div>
+      <div style="background: rgba(30, 219, 224, 0.1); border: 1px solid rgba(30, 219, 224, 0.2); border-radius: 1rem; padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="color: var(--b6); margin-bottom: 0.8rem;">📸 Photography Style:</h4>
+        <ul style="color: var(--text-light); list-style: none;">
+          <li>✓ Candid & authentic moments</li>
+          <li>✓ Professional quality</li>
+          <li>✓ Creative framing</li>
+          <li>✓ Lifestyle storytelling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT MODALS -->
+  <div class="modal" id="canteneModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('cantene')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">🍽️ Cantene Food Ordering Platform</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Project Type:</strong> UI/UX Design Project<br>
+        <strong>Duration:</strong> 3 months<br>
+        <strong>Overview:</strong> Complete food ordering platform designed with modern UI/UX principles. Project includes full system documentation, user journey mapping, use case diagrams, and database ERD.
+      </p>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🎯 Key Deliverables:</h3>
+      <ul style="color: var(--text-light); list-style: none; margin-bottom: 1.5rem;">
+        <li>✓ High-fidelity UI mockups</li>
+        <li>✓ Wireframes & user flows</li>
+        <li>✓ System documentation</li>
+        <li>✓ Use case diagrams</li>
+        <li>✓ Database ERD design</li>
+        <li>✓ Design system & guidelines</li>
+      </ul>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🔧 Tools & Technologies:</h3>
+      <div class="project-tech">
+        <span class="tech-tag">Figma</span>
+        <span class="tech-tag">UI/UX Design</span>
+        <span class="tech-tag">Design Thinking</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="bnspModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('bnsp')">×</span>
+      <h2 style="color: var(--sky); margin-bottom: 1rem; font-family: 'Bebas Neue';">🏆 BNSP Certification Project</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Project Type:</strong> Web Development (Full Stack)<br>
+        <strong>Certification:</strong> BNSP Junior Programmer - <span style="color: var(--sky); font-weight: 700;">COMPETENT ✓</span><br>
+        <strong>Overview:</strong> Community Complaint Reporting System built as part of BNSP Junior Programmer Certification assessment. Successfully achieved "Competent" status demonstrating strong programming fundamentals.
+      </p>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🎯 Project Features:</h3>
+      <ul style="color: var(--text-light); list-style: none; margin-bottom: 1.5rem;">
+        <li>✓ User authentication & authorization</li>
+        <li>✓ Complaint submission system</li>
+        <li>✓ Admin dashboard</li>
+        <li>✓ Real-time notifications</li>
+        <li>✓ Database management</li>
+        <li>✓ Responsive design</li>
+      </ul>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🔧 Technologies Used:</h3>
+      <div class="project-tech">
+        <span class="tech-tag">Laravel</span>
+        <span class="tech-tag">PHP</span>
+        <span class="tech-tag">MySQL</span>
+        <span class="tech-tag">HTML/CSS</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="graphicModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('graphic')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">🎨 Graphic Design & Social Media</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Project Type:</strong> Graphic Design & Brand Development<br>
+        <strong>Client:</strong> University Organizations (HIPMI, INFENTRA, WPI)<br>
+        <strong>Overview:</strong> Created comprehensive visual assets and social media content for various university organizations, maintaining brand consistency and creative excellence.
+      </p>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">📊 Deliverables:</h3>
+      <ul style="color: var(--text-light); list-style: none; margin-bottom: 1.5rem;">
+        <li>✓ Social media graphics (Instagram, TikTok)</li>
+        <li>✓ Event posters & banners</li>
+        <li>✓ Logo design & brand guidelines</li>
+        <li>✓ Infographics & data visualization</li>
+        <li>✓ Promotional materials</li>
+        <li>✓ Consistent brand identity</li>
+      </ul>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🔧 Tools & Technologies:</h3>
+      <div class="project-tech">
+        <span class="tech-tag">Canva</span>
+        <span class="tech-tag">Adobe Creative Suite</span>
+        <span class="tech-tag">Design Thinking</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="portfolioModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('portfolio')">×</span>
+      <h2 style="color: var(--sky); margin-bottom: 1rem; font-family: 'Bebas Neue';">🌐 Portfolio Website</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Project Type:</strong> Web Development (Frontend)<br>
+        <strong>Current:</strong> This website!<br>
+        <strong>Overview:</strong> Modern, interactive portfolio website showcasing skills, projects, and achievements. Features custom animations, bright beach-blue theme, fully responsive design, and interactive elements.
+      </p>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">✨ Features:</h3>
+      <ul style="color: var(--text-light); list-style: none; margin-bottom: 1.5rem;">
+        <li>✓ Custom animations & transitions</li>
+        <li>✓ Bright beach-blue theme</li>
+        <li>✓ Fully responsive design</li>
+        <li>✓ Interactive components</li>
+        <li>✓ Smooth scrolling</li>
+        <li>✓ Optimized performance</li>
+      </ul>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🔧 Technologies Used:</h3>
+      <div class="project-tech">
+        <span class="tech-tag">HTML5</span>
+        <span class="tech-tag">CSS3</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Responsive Design</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="eventmediaModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal('eventmedia')">×</span>
+      <h2 style="color: var(--b6); margin-bottom: 1rem; font-family: 'Bebas Neue';">📹 Event Media Management</h2>
+      <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Project Type:</strong> Media Production & Documentation<br>
+        <strong>Events Covered:</strong> WPI, TULC, INFENTRA, Market Day<br>
+        <strong>Overview:</strong> Professional documentation for major university events including photography, videography, live streaming, and post-production editing. Comprehensive media package for promotional and archival purposes.
+      </p>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">📹 Deliverables:</h3>
+      <ul style="color: var(--text-light); list-style: none; margin-bottom: 1.5rem;">
+        <li>✓ High-quality photography</li>
+        <li>✓ Professional videography</li>
+        <li>✓ Live streaming coordination</li>
+        <li>✓ Video editing & post-production</li>
+        <li>✓ Social media content packages</li>
+        <li>✓ Digital asset archiving</li>
+      </ul>
+      <h3 style="color: var(--sky); margin-bottom: 1rem;">🔧 Equipment & Software:</h3>
+      <div class="project-tech">
+        <span class="tech-tag">Professional Camera</span>
+        <span class="tech-tag">Video Editing</span>
+        <span class="tech-tag">Adobe Premiere</span>
+        <span class="tech-tag">Live Streaming</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-text">
+      © 2026 Salsabilla Nurul Hassanah. All rights reserved. 
+      <br>
+      <a href="index.html" style="color: var(--sky); text-decoration: none;">Back to Main Portfolio</a>
+    </p>
+  </footer>
+
+  <script>
+    // Tab Navigation
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tab = e.target.dataset.tab;
+        
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        e.target.classList.add('active');
+        document.getElementById(tab).classList.add('active');
+      });
+    });
+
+    // Modal Functions
+    function openActivityModal(type) {
+      const modalId = type + 'Modal';
+      document.getElementById(modalId).classList.add('active');
+    }
+
+    function openProjectModal(type) {
+      const modalId = type + 'Modal';
+      document.getElementById(modalId).classList.add('active');
+    }
+
+    function closeModal(type) {
+      const modalId = type + 'Modal';
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal')) {
+        e.target.classList.remove('active');
+      }
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href*="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        if (link.getAttribute('href') !== '#') {
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
